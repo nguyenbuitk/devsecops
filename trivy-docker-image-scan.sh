@@ -7,6 +7,7 @@
 
 dockerImageName=$(awk 'NR==1 {print $2}' Dockerfile)
 echo "docker image will scannaed: " $dockerImageName
+echo "devsecops repo"
 whoami
 pwd
 
