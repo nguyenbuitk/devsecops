@@ -13,3 +13,19 @@ deny[msg] {
   not input.spec.template.spec.containers[0].securityContext.runAsNonRoot = true
   msg = "Containers must not run as root - use runAsNonRoot wihin container security context"
 }
+
+deny {
+    input.kind == "Pod"
+    container := input.spec.containers[_]
+    container.securityContext.runAsNonRoot != true
+    container.securityContext.runAsUser != 1000
+}
+
+deny {
+    input.kind == "Service"
+    port := input.spec.ports[_]
+    port.port == 8080
+    not any i in input.spec.selector {
+        i == "app"
+    }
+}
