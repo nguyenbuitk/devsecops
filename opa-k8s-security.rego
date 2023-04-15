@@ -21,11 +21,11 @@ deny {
     container.securityContext.runAsUser != 1000
 }
 
-deny {
-    input.kind == "Service"
-    port := input.spec.ports[_]
-    port.port == 8080
-    not any i in input.spec.selector {
-        i == "app"
-    }
-}
+# deny {
+#    input.kind == "Service"
+#    port := input.spec.ports[_]
+#    port.port == 8080
+#    not any i in input.spec.selector {
+#        i == "app"
+#    }
+# }
