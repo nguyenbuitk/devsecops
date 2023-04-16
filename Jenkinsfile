@@ -1,4 +1,4 @@
-@Library('slack') _
+// @Library('slack') _
 
 pipeline {
   agent any
@@ -170,6 +170,7 @@ pipeline {
       // report of OWASP ZAP
       publishHTML([allowMissing: false, alwaysLinkToLastBuild: true, keepAll: true, reportDir: 'owasp-zap-report', reportFiles: 'zap_report.html', reportName: 'OWASP ZAP HTML REPORT', reportTitles: 'OWASP ZAP HTML REPORT', useWrapperFileDirectly: true])
 
+      // get script from ./vars/sendNOtification.groovy
       sendNotification currentBuild.result
 
 
