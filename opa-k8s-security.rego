@@ -14,11 +14,13 @@ deny[msg] {
   msg = "Containers must not run as root - use runAsNonRoot wihin container security context"
 }
 
-deny {
-    input.kind == "Pod"
+deny[msg] {
+    input.kind = "Pod"
     container := input.spec.containers[_]
     container.securityContext.runAsNonRoot != true
     container.securityContext.runAsUser != 1000
+    msg = "pod of container must not run as root"
+
 }
 
 # deny {
