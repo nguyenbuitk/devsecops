@@ -20,8 +20,9 @@ deny[msg] {
     container.securityContext.runAsNonRoot != true
     container.securityContext.runAsUser != 1000
     msg = "pod of container must not run as root"
-
 }
+
+
 
 # deny {
 #    input.kind == "Service"

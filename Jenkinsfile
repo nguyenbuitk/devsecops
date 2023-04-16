@@ -159,10 +159,15 @@ pipeline {
   }
   post {
     always {
+      // report of jacoco scan phase
       junit 'target/surefire-reports/*.xml'
       jacoco execPattern: 'target/jacoco.exec'
       // pitmutation mutationStatsFile: '**/target/pit-reports/**/mutations.xml'
+
+      // report of dependency checking
       dependencyCheckPublisher pattern: 'target/dependency-check-report.xml'
+
+      // report of OWASP ZAP
       publishHTML([allowMissing: false, alwaysLinkToLastBuild: true, keepAll: true, reportDir: 'owasp-zap-report', reportFiles: 'zap_report.html', reportName: 'OWASP ZAP HTML REPORT', reportTitles: 'OWASP ZAP HTML REPORT', useWrapperFileDirectly: true])
 
       sendNotification currentBuild.result
