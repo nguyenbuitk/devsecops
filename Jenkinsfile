@@ -170,7 +170,7 @@ pipeline {
       // report of OWASP ZAP
       publishHTML([allowMissing: false, alwaysLinkToLastBuild: true, keepAll: true, reportDir: 'owasp-zap-report', reportFiles: 'zap_report.html', reportName: 'OWASP ZAP HTML REPORT', reportTitles: 'OWASP ZAP HTML REPORT', useWrapperFileDirectly: true])
 
-      // get script from ./vars/sendNOtification.groovy
+      // Use sendNotfitication sendNOtification.groovy from shared library and provide current build status as parameter
       sendNotification currentBuild.result
 
 
