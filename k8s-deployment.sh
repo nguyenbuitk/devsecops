@@ -3,7 +3,7 @@
 #
 sed -i "s#replace#${imageName}#g" k8s_deployment_service.yaml
 
-# ## Lỗi k8s pod không take effect khi sử dụng đoạn bash script này, chỉ có image là thay đổi
+# ## Error bash script don't take effect when apply this 
 # kubectl -n default get deployment ${deploymentName} > /dev/null
 
 # #  output command = 1
