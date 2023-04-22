@@ -23,11 +23,17 @@ pipeline {
 
       stage('Unit Tests - JUnit and Jacoco') {
         steps {
+          sh 'Running Maven test...'
           sh "mvn test"
 
-          // generate code coverage and achirve
-          sh "mvn jacoco:report"
-          archive 'target/site/jacoco/index.html'
+          sh 'Generating code coverage report using Jacoco...'
+          sh 'mvn jacoco:report'
+          archiveArtifacts allowEmptyArchive: true, artifacts: 'target/site/jacoco/index.html', onlyIfSuccessful: true
+          jacoco(execPattern: 'target/jacoco.exec')
+
+          // generates a code coverage report using JaCoCo. The report is stored in the target/site/jacoco directory. After that, archive index.html file
+          // sh "mvn jacoco:report"
+          // archive 'target/site/jacoco/index.html'
         }
       }
 
@@ -40,6 +46,7 @@ pipeline {
       stage('SonarQube - SAST') {
         steps {
           withSonarQubeEnv('SonarQube') {  // lấy từ jenkins/manager/sonarqube
+          // admin | Buinguyen2311x@X
           sh "mvn sonar:sonar -Dsonar.projectKey=numeric-application -Dsonar.host.url=http://dev-ovng-poc2-lead.ovng.dev.myovcloud.com:9000  -Dsonar.login=sqp_1248a4562daba1a7572514539d5927f077c710bf"
           }
         // timeout(time: 2, unit: "MINUTES") {
@@ -160,8 +167,8 @@ pipeline {
   post {
     always {
       // report of jacoco scan phase
+      sh 'Publishing JUnit test results...'
       junit 'target/surefire-reports/*.xml'
-      jacoco execPattern: 'target/jacoco.exec'
       // pitmutation mutationStatsFile: '**/target/pit-reports/**/mutations.xml'
 
       // report of dependency checking
@@ -170,7 +177,7 @@ pipeline {
       // report of OWASP ZAP
       publishHTML([allowMissing: false, alwaysLinkToLastBuild: true, keepAll: true, reportDir: 'owasp-zap-report', reportFiles: 'zap_report.html', reportName: 'OWASP ZAP HTML REPORT', reportTitles: 'OWASP ZAP HTML REPORT', useWrapperFileDirectly: true])
 
-      // Use sendNotfitication sendNOtification.groovy from shared library and provide current build status as parameter
+      // Use sendNotfitication sendNotification.groovy from shared library and provide current build status as parameter
       sendNotification currentBuild.result
 
 
