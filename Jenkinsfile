@@ -10,6 +10,9 @@ pipeline {
     imageName = "buinguyen/numeric-app:${GIT_COMMIT}"
     applicationURL = "http://dev-ovng-poc2-lead.ovng.dev.myovcloud.com"
     applicationURI = "/increment/99"
+    SONARQUBE_URL = "http://dev-ovng-poc2-lead.ovng.dev.myovcloud.com:9000"
+    SONARQUBE_LOGIN = "sqp_1248a4562daba1a7572514539d5927f077c710bf"
+    SONAR_PROJECT_KEY = 'numeric-application'
   }
 
 
@@ -47,7 +50,7 @@ pipeline {
         steps {
           withSonarQubeEnv('SonarQube') {  // lấy từ jenkins/manager/sonarqube
           // admin | Buinguyen2311x@X
-          sh "mvn sonar:sonar -Dsonar.projectKey=numeric-application -Dsonar.host.url=http://dev-ovng-poc2-lead.ovng.dev.myovcloud.com:9000  -Dsonar.login=sqp_1248a4562daba1a7572514539d5927f077c710bf"
+          sh "mvn sonar:sonar -Dsonar.projectKey=${SONAR_PROJECT_KEY} -Dsonar.host.url=${SONARQUBE_URL}  -Dsonar.login=${SONARQUBE_LOGIN}"
           }
         // timeout(time: 2, unit: "MINUTES") {
         //   script {
@@ -179,8 +182,13 @@ pipeline {
 
       // Use sendNotfitication sendNotification.groovy from shared library and provide current build status as parameter
       sendNotification currentBuild.result
+    }
 
-
+    success {
+      script {
+        def dashboardUrl = "${env.SONARQUBE_URL}/dashboard?id=numeric-application"
+        echo "SonarQube analysis is completed! Check out the report at ${dashboardUrl}"
+      }
     }
   }
 }

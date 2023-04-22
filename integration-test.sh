@@ -5,7 +5,6 @@ PORT=$(kubectl -n default get svc ${serviceName} -o json | jq .spec.ports[].node
 echo "serviceName: ${serviceName}"
 echo "applicationURL: ${applicationURL}"
 echo "applicationURI: ${applicationURI}"
-
 echo "PORT: $PORT"
 echo "URL: $applicationURL:$PORT$applicationURI"
 
