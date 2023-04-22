@@ -23,10 +23,10 @@ pipeline {
 
       stage('Unit Tests - JUnit and Jacoco') {
         steps {
-          sh 'Running Maven test...'
+          sh 'echo "Running Maven test..."'
           sh "mvn test"
 
-          sh 'Generating code coverage report using Jacoco...'
+          sh 'echo "Generating code coverage report using Jacoco..."'
           sh 'mvn jacoco:report'
           archiveArtifacts allowEmptyArchive: true, artifacts: 'target/site/jacoco/index.html', onlyIfSuccessful: true
           jacoco(execPattern: 'target/jacoco.exec')
@@ -167,7 +167,7 @@ pipeline {
   post {
     always {
       // report of jacoco scan phase
-      sh 'Publishing JUnit test results...'
+      sh 'echo "Publishing JUnit test results..."'
       junit 'target/surefire-reports/*.xml'
       // pitmutation mutationStatsFile: '**/target/pit-reports/**/mutations.xml'
 
