@@ -101,7 +101,6 @@ pipeline {
       }
 
 
-      }
 
       stage ('Docker Deployment') {
         steps {
