@@ -73,10 +73,10 @@ pipeline {
           parallel(
             "Dependency Scan" : {
               sh "${mvnCmd} dependency-check:check"
-              def reportDir = "${env.WORKSPACE}/target/dependency-check-report"
+              def reportDir = "${env.WORKSPACE}/target"
               def reportFile = "${reportDir}/dependency-check-report.html"
 
-              archiveArtifacts artifacts: "${reportFile}", fingerprint: true
+              archiveArtifacts artifacts: "target/dependency-check-report.html", fingerprint: true
 
               publishHTML(target: [
                 allowMissing: false,
