@@ -72,7 +72,20 @@ pipeline {
             def mvnCmd = "${mavenHome}/bin/mvn"
           parallel(
             "Dependency Scan" : {
-               sh "${mvnCmd} dependency-check:check"
+              sh "${mvnCmd} dependency-check:check"
+              def reportDir = "${env.WORKSPACE}/target/dependency-check-report"
+              def reportFile = "${reportDir}/dependency-check-report.html"
+
+              archiveArtifacts artifacts: "${reportFile}", fingerprint: true
+
+              publishHTML(target: [
+                allowMissing: false,
+                alwaysLinkToLastBuild: true,
+                keepAll: true,
+                reportDir: reportDir,
+                reportFiles: 'dependency-check-report.html',
+                reportName: 'Dependency Check Report'
+              ])
             },
             "Trivy Scan" : {
               sh "bash trivy-docker-image-scan.sh"
