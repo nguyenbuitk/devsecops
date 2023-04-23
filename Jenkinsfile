@@ -51,8 +51,10 @@ pipeline {
       stage('SonarQube - SAST') {
         steps {
           withSonarQubeEnv('SonarQube') {  // lấy từ jenkins/manager/sonarqube
-          // admin | Buinguyen2311x@X
-          sh "mvn sonar:sonar -Dsonar.projectKey=${SONAR_PROJECT_KEY} -Dsonar.host.url=${SONARQUBE_URL}  -Dsonar.login=${SONARQUBE_LOGIN}"
+          sh "mvn sonar:sonar \
+            -Dsonar.projectKey=${SONAR_PROJECT_KEY} \
+            -Dsonar.host.url=${SONARQUBE_URL} \
+            -Dsonar.login=${SONARQUBE_LOGIN}"
           }
         // timeout(time: 2, unit: "MINUTES") {
         //   script {
@@ -68,6 +70,12 @@ pipeline {
           parallel(
             "Dependency Scan" : {
               sh "mvn dependency-check:check"
+              def dependencyCheckResult = scanForDependencyCheckReport()
+              if (dependencyCheckResult) {
+                publishDependencyCheckResults dependencyCheckResult
+              } else {
+                error 'Dependency Check security scan failed!'
+              }
             },
             "Trivy Scan" : {
               sh "bash trivy-docker-image-scan.sh"
@@ -79,8 +87,22 @@ pipeline {
             }
           )
         }
-
       }
+      def scanForDependencyCheckReport() {
+        // Look for dependency-check report in all directories under the workspace
+        def dependencyCheckReportPath = findFiles(glob: '**/target/dependency-check-report.xml')
+        if (dependencyCheckReportPath.size() > 0) {
+          return dependencyCheckReportPath[0]
+        } else {
+          return null
+        }
+      }
+
+      def publishDependencyCheckResults(dependencyCheckReport) {
+        // Publish Dependency Check report using Jenkins plugin
+        dependencyCheckPublisher pattern: dependencyCheckReport.path
+      }
+
 
       stage ('Docker Deployment') {
         steps {
