@@ -72,9 +72,11 @@ pipeline {
             def mvnCmd = "${mavenHome}/bin/mvn"
           parallel(
             "Dependency Scan" : {
+              sh 'echo "Generating code coverage report using dependency check..."'
               sh "${mvnCmd} dependency-check:check"
               def reportDir = "${env.WORKSPACE}/target"
               def reportFile = "${reportDir}/dependency-check-report.html"
+
 
               archiveArtifacts artifacts: "target/dependency-check-report.html", fingerprint: true
 
