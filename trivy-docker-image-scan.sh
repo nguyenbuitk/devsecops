@@ -76,7 +76,7 @@ fi
 if [[ -f "$scanHighReportPath" ]]; then
   echo "Archiving scan report artifact..."
   archiveName="trivy-scan-report.json"
-  archivePath="$WORKSPACE/archive/$archiveName"
+  archivePath="$WORKSPACE/$archiveName"
   cp "$scanHighReportPath" "$archivePath"
   echo "Archived scan report artifact to: $archivePath"
   # echo "Fingerprinting scan report artifact..."
@@ -84,6 +84,8 @@ if [[ -f "$scanHighReportPath" ]]; then
 else
   echo "Scan report not found. Skipping archive and fingerprint steps."
 fi
+
+
 
 # # Clean up the scan report file
 # rm "$scanReportPath"
