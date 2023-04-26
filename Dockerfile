@@ -1,4 +1,4 @@
-FROM adoptopenjdk/openjdk8:alpine-slim
+FROM openjdk:8-jdk-alpine
 EXPOSE 8080
 ARG JAR_FILE=target/*.jar
 # Dockerfile builds an image that runs a Spring Boot application inside a Docker container using OpenJDK 8 on Alpine Linux, with the application accessible on port 8080. It also creates a new user and group for running the application inside the container.
