@@ -91,6 +91,18 @@ pipeline {
             },
             "Trivy Scan" : {
               sh "bash trivy-docker-image-scan.sh"
+              archiveArtifacts artifacts: "trivy-scan-report-critical.json", fingerprint: true
+              def reportDir = "${env.WORKSPACE}"
+              def reportFile = "${reportDir}/trivy-scan-report-critical.json"
+
+              publishHTML(target: [
+                allowMissing: false,
+                alwaysLinkToLastBuild: true,
+                keepAll: true,
+                reportDir: reportDir,
+                reportFiles: 'trivy-scan-report-critical.json',
+                reportName: 'Trivy Scan Report'
+              ])
             },
 
             // OPA scan Dockerfile
