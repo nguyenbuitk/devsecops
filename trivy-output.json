@@ -1,0 +1,6 @@
+[
+  {
+    "Target": "adoptopenjdk/openjdk8:alpine-slim (alpine 3.14.10)",
+    "Type": "alpine"
+  }
+]

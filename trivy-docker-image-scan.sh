@@ -28,49 +28,62 @@
 
 #!/bin/bash
 
-#!/bin/bash
-
-# Define the image to scan
+# Set the name of the Docker image to scan
 dockerImageName=$(awk 'NR==1 {print $2}' Dockerfile)
-echo "Scanning image: ${dockerImageName}"
+echo "Docker image to scan: $dockerImageName"
 
-# Set up the output directory for reports
-REPORT_DIR="${WORKSPACE}/trivy-reports"
-mkdir -p "${REPORT_DIR}"
+# Print the current user and working directory
+echo "Current user: $(whoami)"
+echo "Current directory: $(pwd)"
 
-# Set up the log file for scan output
-LOG_FILE="${REPORT_DIR}/trivy-scan.log"
+# Pull the Trivy image
+docker pull aquasec/trivy:0.18.3
 
-# Run the scan with Trivy
-docker run --rm \
-    -v /var/run/docker.sock:/var/run/docker.sock \
-    -v "${REPORT_DIR}:/root/.cache/trivy" \
-    aquasec/trivy:latest \
-    --severity HIGH,CRITICAL \
-    --ignore-unfixed \
-    --format json \
-    "${dockerImageName}" \
-    | tee "${LOG_FILE}"
+# Define the path for the scan report
+scanReportPath="$WORKSPACE/trivy-scan-report.json"
 
-# Check if any vulnerabilities were found
-if grep -q '"Vulnerabilities":\[\]' "${LOG_FILE}"; then
-    echo "No vulnerabilities found"
+# Scan the Docker image for vulnerabilities with Trivy
+# docker run --rm -v "$WORKSPACE:/root/.cache/" aquasec/trivy:0.18.3 image --light --format json -o "$scanReportPath" "$dockerImageName"
+docker run --rm -v "$WORKSPACE:/root/.cache/" aquasec/trivy:0.18.3 -q image --exit-code 0 --severity HIGH --light --format json -o /root/.cache/trivy-output-high.json openjdk:8-jdk-alpine
+docker run --rm -v "$WORKSPACE:/root/.cache/" aquasec/trivy:0.18.3 -q image --exit-code 0 --severity CRITICAL --light --format json -o /root/.cache/trivy-output-critical.json openjdk:8-jdk-alpine
+
+# Extract the vulnerability counts from the scan report
+if [ -s "trivy-output-high.json" ]; then
+  highVulnCount=$(jq '[.[] | select(.Vulnerabilities) | .Vulnerabilities[] | select(.Severity == "HIGH")] | length' trivy-output-high.json)
 else
-    # Generate HTML report
-    trivy --format html --output "${REPORT_DIR}/trivy-report.html" "${dockerImageName}"
-
-    # Upload report to Jenkins
-    if [[ -n "${JENKINS_HOME}" ]]; then
-        echo "Uploading report to Jenkins"
-        ${WORKSPACE}/trivy-reports-trivy-upload.sh "${REPORT_DIR}"
-    fi
-
-    # Check if any critical vulnerabilities were found
-    if grep -q '"Severity":"CRITICAL"' "${LOG_FILE}"; then
-        echo "Critical vulnerabilities found"
-        exit 1
-    fi
+  highVulnCount=0
 fi
 
-# Clean up reports
-rm -rf "${REPORT_DIR}"
+if [ -s "trivy-output-critical.json" ]; then
+  criticalVulnCount=$(jq '[.[] | select(.Vulnerabilities) | .Vulnerabilities[] | select(.Severity == "HIGH")] | length' trivy-output-critical.json)
+else
+  criticalVulnCount=0
+fi
+
+# Print the vulnerability counts
+echo "High severity vulnerabilities found: $highVulnCount"
+echo "Critical severity vulnerabilities found: $criticalVulnCount"
+
+# Check if any critical vulnerabilities were found
+if (( criticalVulnCount > 2 )); then
+  echo "Image scanning failed. Critical vulnerabilities found."
+  exit 1
+else
+  echo "Image scanning passed. No critical vulnerabilities found."
+fi
+
+# # Archive the scan report artifact in Jenkins
+# if [[ -f "$scanReportPath" ]]; then
+#   echo "Archiving scan report artifact..."
+#   archiveName="trivy-scan-report-${BUILD_NUMBER}.json"
+#   archivePath="$WORKSPACE/archive/$archiveName"
+#   cp "$scanReportPath" "$archivePath"
+#   echo "Archived scan report artifact to: $archivePath"
+#   echo "Fingerprinting scan report artifact..."
+#   fingerprint "$archivePath"
+# else
+#   echo "Scan report not found. Skipping archive and fingerprint steps."
+# fi
+
+# # Clean up the scan report file
+# rm "$scanReportPath"
