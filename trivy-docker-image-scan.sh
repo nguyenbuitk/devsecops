@@ -40,7 +40,7 @@ echo "Current directory: $(pwd)"
 docker pull aquasec/trivy:0.18.3
 
 # Define the path for the scan report
-scanReportPath="$WORKSPACE/trivy-scan-report.json"
+scanHighReportPath="$WORKSPACE/trivy-output-high.json"
 
 # Scan the Docker image for vulnerabilities with Trivy
 # docker run --rm -v "$WORKSPACE:/root/.cache/" aquasec/trivy:0.18.3 image --light --format json -o "$scanReportPath" "$dockerImageName"
@@ -72,18 +72,18 @@ else
   echo "Image scanning passed. No critical vulnerabilities found."
 fi
 
-# # Archive the scan report artifact in Jenkins
-# if [[ -f "$scanReportPath" ]]; then
-#   echo "Archiving scan report artifact..."
-#   archiveName="trivy-scan-report-${BUILD_NUMBER}.json"
-#   archivePath="$WORKSPACE/archive/$archiveName"
-#   cp "$scanReportPath" "$archivePath"
-#   echo "Archived scan report artifact to: $archivePath"
-#   echo "Fingerprinting scan report artifact..."
-#   fingerprint "$archivePath"
-# else
-#   echo "Scan report not found. Skipping archive and fingerprint steps."
-# fi
+# Archive the scan report artifact in Jenkins
+if [[ -f "$scanHighReportPath" ]]; then
+  echo "Archiving scan report artifact..."
+  archiveName="trivy-scan-report-${BUILD_NUMBER}.json"
+  archivePath="$WORKSPACE/archive/$archiveName"
+  cp "$scanHighReportPath" "$archivePath"
+  echo "Archived scan report artifact to: $archivePath"
+  echo "Fingerprinting scan report artifact..."
+  fingerprint "$archivePath"
+else
+  echo "Scan report not found. Skipping archive and fingerprint steps."
+fi
 
 # # Clean up the scan report file
 # rm "$scanReportPath"
