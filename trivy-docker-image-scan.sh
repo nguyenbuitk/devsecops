@@ -72,15 +72,15 @@ else
   echo "Image scanning passed. No critical vulnerabilities found."
 fi
 
-# Archive the scan report artifact in Jenkins
+# Save the scan report artifact in Jenkins
 if [[ -f "$scanHighReportPath" ]]; then
   echo "Archiving scan report artifact..."
-  archiveName="trivy-scan-report-${BUILD_NUMBER}.json"
+  archiveName="trivy-scan-report.json"
   archivePath="$WORKSPACE/archive/$archiveName"
   cp "$scanHighReportPath" "$archivePath"
   echo "Archived scan report artifact to: $archivePath"
-  echo "Fingerprinting scan report artifact..."
-  fingerprint "$archivePath"
+  # echo "Fingerprinting scan report artifact..."
+  # fingerprint "$archivePath"
 else
   echo "Scan report not found. Skipping archive and fingerprint steps."
 fi
