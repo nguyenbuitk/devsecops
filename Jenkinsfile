@@ -99,9 +99,9 @@ pipeline {
 
             // OPA scan Dockerfile
             "OPA Conftest" : {
-              sh 'echo "running OPA Conftest for scan Dockerfile'
+              sh 'echo "running OPA Conftest for scan Dockerfile" ...'
               sh 'docker run --rm -v $(pwd):/project openpolicyagent/conftest test --policy opa-docker-security.rego Dockerfile'
-              
+
             }
           )
           }

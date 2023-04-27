@@ -53,7 +53,7 @@ deny[msg] {
 #    msg = sprintf("Line %d: use a trusted base image", [i])
 # }
 
-# Do not use 'latest' tag for base imagedeny[msg] {
+# Do not use 'latest' tag for base imagedeny[msg]
 deny[msg] {
     input[i].Cmd == "from"
     val := split(input[i].Value[0], ":")
