@@ -101,7 +101,14 @@ pipeline {
             "OPA Conftest" : {
               sh 'echo "running OPA Conftest for scan Dockerfile" ...'
               sh 'docker run --rm -v $(pwd):/project openpolicyagent/conftest test --policy opa-docker-security.rego Dockerfile'
-
+              script {
+                  def results = readJSON file: 'opa-conftest-results.json'
+                  if (results.summary.failures > 0) {
+                      error 'OPA Conftest found policy violations'
+                  } else {
+                      echo 'OPA Conftest passed - no policy violations found'
+                  }
+              }
             }
           )
           }

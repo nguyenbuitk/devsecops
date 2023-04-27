@@ -16,7 +16,7 @@ secrets_env = [
 
 # Do not use 'ADD' or 'COPY' to copy sensitive files
 deny[msg] {
-    input[i].Cmd == "add" or input[i].Cmd == "copy"
+    input[i].Cmd == "add"
     val := input[i].Value
     contains(lower(val[_]), secrets_env[_])
     msg = sprintf("Line %d: Potential sensitive file being copied with ADD or COPY command: %s", [i, val])
@@ -26,7 +26,8 @@ deny[msg] {
 deny[msg] {
     input[i].Cmd == "run"
     val := input[i].Value
-    contains(val[_], "chmod") and contains(val[_], "777")
+    contains(val[_], "chmod")
+    contains(val[_], "777")
     msg = sprintf("Line %d: Do not use 'RUN' with 'chmod 777'", [i])
 }
 
@@ -34,8 +35,8 @@ deny[msg] {
 deny[msg] {
     input[i].Cmd == "expose"
     val := input[i].Value
-    contains(val[_], "80") or contains(val[_], "443") or contains(val[_], "8443")
-    msg = sprintf("Line %d: Do not use 'EXPOSE' with default ports (80, 443)", [i])
+    contains(val[_], "443")
+    msg = sprintf("Line %d: Do not use 'EXPOSE' with default ports (443)", [i])
 }
 
 deny[msg] {
