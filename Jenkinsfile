@@ -92,12 +92,16 @@ pipeline {
             "Trivy Scan" : {
               sh 'echo "Running Trivy docker scan ..."'
               sh "bash trivy-docker-image-scan.sh"
+              //  step is archiving the trivy-scan-report-critical.json file and generating a fingerprint for it, making it available for later use
+              // /var/lib/jenkins/jobs/devsecops-numeric-application/builds/277/archive/trivy-scan-report-critical.json
               archiveArtifacts artifacts: "trivy-scan-report-critical.json", fingerprint: true
             },
 
             // OPA scan Dockerfile
             "OPA Conftest" : {
+              sh 'echo "running OPA Conftest for scan Dockerfile'
               sh 'docker run --rm -v $(pwd):/project openpolicyagent/conftest test --policy opa-docker-security.rego Dockerfile'
+              
             }
           )
           }

@@ -14,6 +14,30 @@ secrets_env = [
     "tkn"
 ]
 
+# Do not use 'ADD' or 'COPY' to copy sensitive files
+deny[msg] {
+    input[i].Cmd == "add" or input[i].Cmd == "copy"
+    val := input[i].Value
+    contains(lower(val[_]), secrets_env[_])
+    msg = sprintf("Line %d: Potential sensitive file being copied with ADD or COPY command: %s", [i, val])
+}
+
+# Do not use 'RUN' with 'chmod 777'
+deny[msg] {
+    input[i].Cmd == "run"
+    val := input[i].Value
+    contains(val[_], "chmod") and contains(val[_], "777")
+    msg = sprintf("Line %d: Do not use 'RUN' with 'chmod 777'", [i])
+}
+
+# Do not use 'EXPOSE' with default ports
+deny[msg] {
+    input[i].Cmd == "expose"
+    val := input[i].Value
+    contains(val[_], "80") or contains(val[_], "443") or contains(val[_], "8443")
+    msg = sprintf("Line %d: Do not use 'EXPOSE' with default ports (80, 443)", [i])
+}
+
 deny[msg] {
     input[i].Cmd == "env"
     val := input[i].Value
@@ -78,14 +102,6 @@ forbidden_users = [
     "0"
 ]
 
-# deny[msg] {
-#    command := "user"
-#    users := [name | input[i].Cmd == "user"; name := input[i].Value]
-#    lastuser := users[count(users)-1]
-#    contains(lower(lastuser[_]), forbidden_users[_])
-#    msg = sprintf("Line %d: Last USER directive (USER %s) is forbidden", [i, lastuser])
-# }
-
 # Do not sudo
 deny[msg] {
     input[i].Cmd == "run"
@@ -101,7 +117,3 @@ multi_stage = true {
     val := concat(" ", input[i].Flags)
     contains(lower(val), "--from=")
 }
-# deny[msg] {
-#    multi_stage == false
-#    msg = sprintf("You COPY, but do not appear to use multi-stage builds...", [])
-# }
