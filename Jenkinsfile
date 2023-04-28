@@ -98,6 +98,7 @@ pipeline {
             },
 
             // OPA scan Dockerfile
+            // just test rc.local of ec2
             "OPA Conftest" : {
               sh 'echo "running OPA Conftest for scan Dockerfile" ...'
               sh 'bash opa-conftest-check.sh'
