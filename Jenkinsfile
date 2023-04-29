@@ -10,9 +10,15 @@ pipeline {
     imageName = "buinguyen/numeric-app:${GIT_COMMIT}"
     applicationURL = "http://dev-ovng-poc2-lead.ovng.dev.myovcloud.com"
     applicationURI = "/increment/99"
+
     SONARQUBE_URL = "http://dev-ovng-poc2-lead.ovng.dev.myovcloud.com:9000"
     SONARQUBE_LOGIN = "sqp_1248a4562daba1a7572514539d5927f077c710bf"
     SONAR_PROJECT_KEY = 'numeric-application'
+
+    DOCKER_IMAGE_NAME = "buinguyen/numeric-app:${GIT_COMMIT}"
+    DOCKER_REGISTRY_CREDENTIALS = 'dockerhub'
+    DOCKER_REGISTRY_URL = ''
+
   }
 
 
@@ -107,12 +113,8 @@ pipeline {
           }
         }
       }
+
       stage('Docker Deployment') {
-        environment {
-          DOCKER_IMAGE_NAME = "buinguyen/numeric-app:${GIT_COMMIT}"
-          DOCKER_REGISTRY_CREDENTIALS = 'dockerhub'
-          DOCKER_REGISTRY_URL = ''
-        }
         steps {
           withCredentials([[
             credentialsId: "${DOCKER_REGISTRY_CREDENTIALS}",
