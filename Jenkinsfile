@@ -8,17 +8,12 @@ pipeline {
     containerName = "devsecops-container"
     serviceName = "devsecops-svc"
     imageName = "buinguyen/numeric-app:${GIT_COMMIT}"
+
     applicationURL = "http://dev-ovng-poc2-lead.ovng.dev.myovcloud.com"
     applicationURI = "/increment/99"
-
     SONARQUBE_URL = "http://dev-ovng-poc2-lead.ovng.dev.myovcloud.com:9000"
     SONARQUBE_LOGIN = "sqp_1248a4562daba1a7572514539d5927f077c710bf"
     SONAR_PROJECT_KEY = 'numeric-application'
-
-    DOCKER_IMAGE_NAME = "buinguyen/numeric-app:${GIT_COMMIT}"
-    DOCKER_REGISTRY_CREDENTIALS = 'dockerhub'
-    DOCKER_REGISTRY_URL = ''
-
   }
 
 
@@ -113,21 +108,22 @@ pipeline {
           }
         }
       }
-
-      stage('Docker Deployment') {
+      stage ('Docker Deployment') {
+        environment {
+          DOCKER_REPOSITORY = "buinguyen/numeric-app"
+          DOCKER_TAG = "${env.BRANCH_NAME}.${env.BUILD_NUMBER}"
+          DOCKER_IMAGE_NAME = "${DOCKER_REPOSITORY}:${GIT_COMMIT}"
+//        imageName = "buinguyen/numeric-app:${GIT_COMMIT}"
+        }
         steps {
-          withCredentials([[
-            credentialsId: "${DOCKER_REGISTRY_CREDENTIALS}",
-            url: "${DOCKER_REGISTRY_URL}"
-          ]]) {
-            dir('.') {
-              sh "docker build -t ${DOCKER_IMAGE_NAME} ."
-              sh "docker push ${DOCKER_IMAGE_NAME}"
-            }
+          withDockerRegistry([credentialsId: "dockerhub", url: ""]) {
+            sh 'printenv'
+            sh 'docker build -t ${DOCKER_IMAGE_NAME} .'
+            sh 'docker push ${DOCKER_IMAGE_NAME}'
           }
+          sh 'echo "Docker image pushed: ${imageName}"'
         }
       }
-
 
       stage ('Vulnerability Scan - Kubenertes') {
         steps {
