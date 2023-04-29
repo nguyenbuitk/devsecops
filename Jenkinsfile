@@ -107,18 +107,25 @@ pipeline {
           }
         }
       }
-
-
-
-      stage ('Docker Deployment') {
+      stage('Docker Deployment') {
+        environment {
+          DOCKER_IMAGE_NAME = "buinguyen/numeric-app:${GIT_COMMIT}"
+          DOCKER_REGISTRY_CREDENTIALS = 'dockerhub'
+          DOCKER_REGISTRY_URL = ''
+        }
         steps {
-          withDockerRegistry([credentialsId: "dockerhub", url: ""]) {
-            sh 'printenv'
-            sh 'docker build -t buinguyen/numeric-app:""$GIT_COMMIT"" .'
-            sh 'docker push buinguyen/numeric-app:""$GIT_COMMIT""'
+          withCredentials([[
+            credentialsId: "${DOCKER_REGISTRY_CREDENTIALS}",
+            url: "${DOCKER_REGISTRY_URL}"
+          ]]) {
+            dir('/path/to/dockerfile/directory') {
+              sh "docker build -t ${DOCKER_IMAGE_NAME} ."
+              sh "docker push ${DOCKER_IMAGE_NAME}"
+            }
           }
         }
       }
+
 
       stage ('Vulnerability Scan - Kubenertes') {
         steps {
