@@ -120,7 +120,7 @@ pipeline {
             credentialsId: "${DOCKER_REGISTRY_CREDENTIALS}",
             url: "${DOCKER_REGISTRY_URL}"
           ]]) {
-            dir('/path/to/dockerfile/directory') {
+            dir('.') {
               sh "docker build -t ${DOCKER_IMAGE_NAME} ."
               sh "docker push ${DOCKER_IMAGE_NAME}"
             }
