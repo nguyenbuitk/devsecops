@@ -10,7 +10,7 @@ echo "URL: $applicationURL:$PORT$applicationURI"
 
 if [[ ! -z "$PORT" ]];
 then
-    # response=$(curl -s http://dev-ovng-poc2-lead.ovng.dev.myovcloud.com:31034/increment/99)
+    # response=$(curl -s http://devsecops-project.com:31034/increment/99)
     response=$(curl -s $applicationURL:$PORT$applicationURI)
     http_code=$(curl -s -o /dev/null -w "%{http_code}" $applicationURL:$PORT$applicationURI)
 

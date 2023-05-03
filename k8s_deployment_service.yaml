@@ -22,6 +22,7 @@ spec:
       serviceAccountName: default
       containers:
       - image: replace
+        imagePullPolicy: always
         name: devsecops-container
         volumeMounts:
         - mountPath: /tmp

@@ -4,5 +4,5 @@
 # Only the rule identifiers are used - the names are just for info
 # You can add your own messages to each rule by appending them after a tab on each line.
 
-10096	IGNORE	http://dev-ovng-poc2-lead.ovng.dev.myovcloud.com:31034/
-90003	IGNORE	http://dev-ovng-poc2-lead.ovng.dev.myovcloud.com:31034/
+10096	IGNORE	http://devsecops-project.com:31034/
+90003	IGNORE	http://devsecops-project.com:31034/
