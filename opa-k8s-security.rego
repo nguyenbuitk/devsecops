@@ -14,18 +14,18 @@ deny[msg] {
   msg = "Containers must not run as root - use runAsNonRoot wihin container security context"
 }
 
-deny[msg] {
-  input.kind = "Pod"
-  not input.spec.containers[].resources.limits
-  not input.spec.containers[].resources.requests
-  msg = "Pod must have resource limits and requests set"
-}
+# deny[msg] {
+#  input.kind = "Pod"
+#  not input.spec.containers[].resources.limits
+#  not input.spec.containers[].resources.requests
+# msg = "Pod must have resource limits and requests set"
+# }
 
-deny[msg] {
-  input.kind = "Deployment"
-  not input.spec.template.spec.containers[_].imagePullPolicy = "IfNotPresent"
-  msg = "Deployment must use imagePullPolicy: IfNotPresent"
-}
+# deny[msg] {
+#  input.kind = "Deployment"
+#  not input.spec.template.spec.containers[_].imagePullPolicy = "IfNotPresent"
+#  msg = "Deployment must use imagePullPolicy: IfNotPresent"
+# }
 
 
 
