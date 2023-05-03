@@ -9,9 +9,9 @@ pipeline {
     serviceName = "devsecops-svc"
     imageName = "buinguyen/numeric-app:${GIT_COMMIT}"
 
-    applicationURL = "http://devsecops-project.com"
+    applicationURL = "http://dev-ovng-poc2-lead.ovng.dev.myovcloud.com"
     applicationURI = "/increment/99"
-    SONARQUBE_URL = "http://devsecops-project.com:9000"
+    SONARQUBE_URL = "http://dev-ovng-poc2-lead.ovng.dev.myovcloud.com:9000"
     SONARQUBE_LOGIN = "sqp_1248a4562daba1a7572514539d5927f077c710bf"
     SONAR_PROJECT_KEY = 'numeric-application'
   }
