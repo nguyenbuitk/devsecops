@@ -10,7 +10,7 @@ echo $(id -u):$(id -g)
 # `-t $applicationURL:$PORT/v3/api-docs` This specifies the target API to scan.
 # `zap-api-scan.py` is a Python script that is included with the OWASP ZAP Docker image. It is used to run automated scans on RESTful APIs using the ZAP tool.
 # `-f openapi` This specifies the format of the API documentation. In this case, it's OpenAPI.
-# `-c zap_rules` This specifies the ruleset to use for the scan. In this case, it's the zap_rules ruleset, which is a collection of predefined rules for ZAP scans.
+# `-c zap_rules` This specifies the ruleset to use for the scan. In this case, it's the zap_rules ruleset, which is a collection of predefined rules for ZAP scans. talisman
 docker run -v $(pwd):/zap/wrk/:rw -t owasp/zap2docker-stable zap-api-scan.py -t $applicationURL:$PORT/v3/api-docs -f openapi -c zap_rules -r zap_report.html
 sudo mkdir -p owasp-zap-report
 sudo mv zap_report.html owasp-zap-report
