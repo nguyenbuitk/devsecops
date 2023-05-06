@@ -1,5 +1,6 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
 <HTML>
+<html lang="en">
 <HEAD>
 <TITLE>Just simple JavaServer pages for CI/CD testing</TITLE>
 
@@ -16,11 +17,9 @@
 <BODY BGCOLOR="#FDF5E6" TEXT="#000000" LINK="#0000EE"
       VLINK="#551A8B" ALINK="#FF0000">
 
-<CENTER>
-<TABLE BORDER=5 BGCOLOR="#EF8429">
+<TABLE BORDER=5 BGCOLOR="#EF8429" summary="This table shows the title of the page and how to use JavaServer Pages." >
   <TR><TH CLASS="TITLE">
       Using JavaServer Pages</TABLE>
-</CENTER>
 <P>
 
 Some dynamic content for testing <BR>
