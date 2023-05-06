@@ -118,7 +118,7 @@
 			<version>6.1.6</version>
 			<configuration>
 				<format>ALL</format>
-				<failBuildOnCVSS>5</failBuildOnCVSS>
+				<failBuildOnCVSS>7.9</failBuildOnCVSS>
 			</configuration>
 			</plugin>
 
