@@ -81,14 +81,14 @@ pipeline {
 
               archiveArtifacts artifacts: "target/dependency-check-report.html", fingerprint: true
 
-              publishHTML(target: [
-                allowMissing: false,
-                alwaysLinkToLastBuild: true,
-                keepAll: true,
-                reportDir: reportDir,
-                reportFiles: 'dependency-check-report.html',
-                reportName: 'Dependency Check Report'
-              ])
+              // publishHTML(target: [
+              //   allowMissing: false,
+              //   alwaysLinkToLastBuild: true,
+              //   keepAll: true,
+              //   reportDir: reportDir,
+              //   reportFiles: 'dependency-check-report.html',
+              //   reportName: 'Dependency Check Report'
+              // ])
             },
             "Trivy Scan" : {
               sh 'echo "Running Trivy docker scan ..."'
