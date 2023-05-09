@@ -1,10 +1,10 @@
 package main
 
-# Ngăn chặn việc để nodePort expose ra ngoài
+# Expose NodePort ra ngoài
 deny[msg] {
   input.kind = "Service"
   not input.spec.type = "NodePort"
-  msg = "Service type should be NodePort"
+  msg = "Service type should  be NodePort"
 }
 
 # Ngăn chặn việc được cấp quyền root
@@ -14,21 +14,24 @@ deny[msg] {
   msg = "Containers must not run as root - use runAsNonRoot wihin container security context"
 }
 
-# deny[msg] {
-#  input.kind = "Pod"
-#  not input.spec.containers[].resources.limits
-#  not input.spec.containers[].resources.requests
-# msg = "Pod must have resource limits and requests set"
-# }
+# must use imagePullPolicy: IfNotPresent
+deny[msg] {
+  input.kind = "Deployment"
+  not input.spec.template.spec.containers[0].imagePullPolicy = "IfNotPresent"
+  msg = "Deployment must use imagePullPolicy: IfNotPresent"
+}
 
-# deny[msg] {
-#  input.kind = "Deployment"
-#  not input.spec.template.spec.containers[_].imagePullPolicy = "IfNotPresent"
-#  msg = "Deployment must use imagePullPolicy: IfNotPresent"
-# }
+# Set limit and requests resource for pod
+deny[msg] {
+  input.kind = "Pod"
+  not input.spec.containers[0].resources.limits
+  not input.spec.containers[0].resources.requests
+  msg = "Pod must have resource limits and requests set"
+}
 
 
 
+# In case deploy pod without deployment, replicaset
 deny[msg] {
     input.kind = "Pod"
     container := input.spec.containers[_]
@@ -37,13 +40,10 @@ deny[msg] {
     msg = "pod of container must not run as root"
 }
 
-
-
-# deny {
-#    input.kind == "Service"
-#    port := input.spec.ports[_]
-#    port.port == 8080
-#    not any i in input.spec.selector {
-#        i == "app"
-#    }
-# }
+# Limit access to Kubernetes secrets:
+deny[msg] {
+  input.kind = "Pod"
+  input.spec.containers[_].env[_].valueFrom.secretKeyRef
+  not input.metadata.annotations["allowed-secret"] = "true"
+  msg = "Access to this secret is not allowed"
+}

@@ -102,7 +102,7 @@ pipeline {
             // just test rc.local of ec2
             "OPA Conftest" : {
               sh 'echo "running OPA Conftest for scan Dockerfile" ...'
-              sh 'bash opa-conftest-check.sh'
+              sh 'bash opa-conftest-docker.sh'
             }
           )
           }
@@ -129,7 +129,8 @@ pipeline {
         steps {
           parallel(
             "OPA Scan": {
-              sh 'docker run --rm -v $(pwd):/project openpolicyagent/conftest test --policy opa-k8s-security.rego k8s_deployment_service.yaml'
+              sh 'echo "running OPA Conftest for scan Kubernetes resources" ...'
+              sh 'bash opa-conftest-k8s.sh'
             },
 
             "Kubesec Scan": {

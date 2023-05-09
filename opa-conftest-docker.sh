@@ -6,10 +6,10 @@ echo $opa_output
 
 # Check the exit code of the OPA Conftest command
 if [[ "${exit_code}" == 1 ]]; then
-  echo "OPA Conftest found policy violations"
+  echo "OPA Conftest found policy violations on Dockerfile"
   exit 1
 elif [[ "${exit_code}" == 2 ]]; then
-  echo "OPA Conftest encountered an error"
+  echo "OPA Conftest encountered an error with Dockerfile"
   exit 1
 else
   echo "OPA Conftest passed - no policy violations found"
