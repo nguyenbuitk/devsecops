@@ -6,6 +6,9 @@ scan_result=$(curl -sSX POST --data-binary @"$RESOURCE_FILE" https://v2.kubesec.
 scan_message=$(echo "$scan_result" | jq -r '.[0].message')
 scan_score=$(echo "$scan_result" | jq -r '.[0].score')
 
+echo "scanning result: "
+echo $scan_result | jq
+
 # Check scan score
 if ((scan_score >= 5)); then
     echo "Score is $scan_score"
