@@ -45,8 +45,8 @@ scanCriticalReportPath="$WORKSPACE/trivy-output-critical.json"
 
 # Scan the Docker image for vulnerabilities with Trivy
 # docker run --rm -v "$WORKSPACE:/root/.cache/" aquasec/trivy:0.18.3 image --light --format json -o "$scanReportPath" "$dockerImageName"
-docker run --rm -v "$WORKSPACE:/root/.cache/" aquasec/trivy:0.18.3 -q image --exit-code 0 --severity HIGH --light --format json -o /root/.cache/trivy-output-high.json openjdk:8-jdk-alpine
-docker run --rm -v "$WORKSPACE:/root/.cache/" aquasec/trivy:0.18.3 -q image --exit-code 0 --severity CRITICAL --light --format json -o /root/.cache/trivy-output-critical.json openjdk:8-jdk-alpine
+docker run --rm -v "$WORKSPACE:/root/.cache/" aquasec/trivy:0.18.3 -q image --exit-code 0 --severity HIGH --light --format json -o /root/.cache/trivy-output-high.json $dockerImageName
+docker run --rm -v "$WORKSPACE:/root/.cache/" aquasec/trivy:0.18.3 -q image --exit-code 0 --severity CRITICAL --light --format json -o /root/.cache/trivy-output-critical.json $dockerImageName
 
 # Extract the vulnerability counts from the scan report
 if [ -s "trivy-output-high.json" ]; then
@@ -73,6 +73,7 @@ else
   echo "Image scanning passed. No critical vulnerabilities found."
 fi
 
+# /var/lib/jenkins/jobs/devsecops-numeric-application/builds/277/archive/trivy-scan-report-critical.json
 # Save the scan report artifact in Jenkins
 if [[ -f "$scanHighReportPath" ]]; then
   echo "Archiving scan report artifact..."
