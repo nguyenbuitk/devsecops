@@ -56,7 +56,7 @@ else
 fi
 
 if [ -s "trivy-output-critical.json" ]; then
-  criticalVulnCount=$(jq '[.[] | select(.Vulnerabilities) | .Vulnerabilities[] | select(.Severity == "HIGH")] | length' trivy-output-critical.json)
+  criticalVulnCount=$(jq '[.[] | select(.Vulnerabilities) | .Vulnerabilities[] | select(.Severity == "CRITICAL")] | length' trivy-output-critical.json)
 else
   criticalVulnCount=0
 fi
