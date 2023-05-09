@@ -134,6 +134,7 @@ pipeline {
             },
 
             "Kubesec Scan": {
+              sh 'echo "prevent security-related risks" ...'
               sh 'bash kubesec-scan.sh'
             },
 

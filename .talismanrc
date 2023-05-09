@@ -3,4 +3,6 @@ fileignoreconfig:
   checksum: 9e56af24fc829c026099ca6f38b9b9883ffb1ba702f396be98776d2fe211c78a
 - filename: opa-conftest-docker.sh
   checksum: 909672bd567d0cc87a5a99b003923dd5bfc18f56ca17a14bcbeb12fea43c000b
+- filename: opa-conftest-k8s.sh
+  checksum: e2bfbceaacfcbbf2becfc2d3a781d566114548c680c50e1a9e1dee590fd4f193
 version: ""
