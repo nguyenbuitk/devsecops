@@ -2,7 +2,7 @@
 # check the status of a Kubernetes Deployment rollout and report if the rollout has succeeded or failed.
 # ensure that your application is deployed correctly and avoid issues like downtime or application crashes caused by failed deployments
 sleep 10s
-if [[ $(kubectl -n default rollout status deploy "${deploymentName}" --timeout 5s) != *"deployment \""${deploymentName}"\" successfully rolled out"* ]]; then
+if [[ $(kubectl -n default rollout status deploy devsecops --timeout 5s) != *"deployment \"devsecops\" successfully rolled out"* ]]; then
     echo "Deployment ${deploymentName} Rollout has Failed"
     kubectl -n default rollout undo deploy ${deploymentName}
     exit 1;
