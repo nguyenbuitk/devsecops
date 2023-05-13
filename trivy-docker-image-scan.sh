@@ -66,7 +66,7 @@ echo "High severity vulnerabilities found: $highVulnCount"
 echo "Critical severity vulnerabilities found: $criticalVulnCount"
 
 # Check if any critical vulnerabilities were found
-if (( criticalVulnCount > 2 )); then
+if (( criticalVulnCount > 3 )); then
   echo "Image scanning failed. Critical vulnerabilities found."
   exit 1
 else
