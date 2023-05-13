@@ -20,8 +20,7 @@
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>17</java.version>
 		<spring-boot.version>3.0.0</spring-boot.version>
-		<maven.compiler.target>17</maven.compiler.target>
-    	<maven.compiler.source>17</maven.compiler.source>
+		<maven.compiler.release>17</maven.compiler.release>
 	</properties>
 
 	<dependencies>
@@ -103,14 +102,11 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
-			<plugin>
+			<!-- <plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.8.1</version>
-				<configuration>
-					<release>17</release>
-				</configuration>
-			</plugin>
+				<version>17</version>
+			</plugin> -->
 			<!--                   Jacoco Plugin                   -->
 			<plugin>
 			<groupId>org.jacoco</groupId>
