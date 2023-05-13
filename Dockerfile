@@ -5,7 +5,7 @@ ARG JAR_FILE=target/*.jar
 
 # Specifies the base image to use, which is the OpenJDK 8 runtime environment on Alpine Linux.
 # Creates a new user group called "pipeline" and a new user called "k8s-pipeline" that is a member of that group.
-RUN RUN addgroup --system --gid 1000 pipeline && adduser --system --uid 1000 --ingroup pipeline k8s-pipeline
+RUN addgroup --system pipeline && adduser --system --ingroup pipeline k8s-pipeline
 COPY ${JAR_FILE} /home/k8s-pipeline/app.jar
 USER k8s-pipeline
 
