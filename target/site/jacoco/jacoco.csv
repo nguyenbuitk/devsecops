@@ -1,0 +1,5 @@
+GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
+numeric,com.devsecops,NumericApplication,5,3,0,0,2,1,1,1,1,1
+numeric,com.devsecops,NumericController,0,13,0,0,0,3,0,1,0,1
+numeric,com.devsecops,WebSecurityConfig,0,8,0,0,0,3,0,2,0,2
+numeric,com.devsecops,NumericController.compare,59,54,0,4,8,13,1,5,1,3

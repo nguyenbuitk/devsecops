@@ -5,16 +5,9 @@ fileignoreconfig:
   checksum: 909672bd567d0cc87a5a99b003923dd5bfc18f56ca17a14bcbeb12fea43c000b
 - filename: opa-conftest-k8s.sh
   checksum: e2bfbceaacfcbbf2becfc2d3a781d566114548c680c50e1a9e1dee590fd4f193
-- filename: target/surefire-reports/2023-05-13T12-36-42_463.dumpstream
-  checksum: c74a36c22646f234520f53aeaff5d3f72b884d014b2534dbc44172f3053bd17b
-- filename: target/surefire-reports/2023-05-13T12-38-21_194.dumpstream
-  checksum: 6d5937c4142eb66a07cfd916bdc398eadd22da2a2857ecdf73e35119a9ad5b09
 
-- filename: target/site/jacoco/jacoco-resources/prettify.js
-  checksum: 8c79f5dd7b2c11de21e46b17c0652b70418eb1d4da620fa081ef9884e3d240cd
-- filename: target/surefire-reports/2023-05-13T17-30-13_617-jvmRun1.dump
-  checksum: 442bdb17f01c8e76a938c59fcc5c9dfc3a8409f38e320436d3a8ceaa2249a772
 - filename: target/site/jacoco/jacoco-sessions.html
-  checksum: bfdcaa87c512e9839fb244ff66cc1e268c58114b6feef2a4f3769f17252dd4e0
+  checksum: 81b12349fe67db2da8a394ae4828bdac17016a9397cf11535c31b74495d54061
+
 
 version: ""
