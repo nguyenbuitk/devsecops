@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: com.devsecops.NumericApplicationTests
 -------------------------------------------------------------------------------
-Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 6.01 s - in com.devsecops.NumericApplicationTests
+Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 5.502 s - in com.devsecops.NumericApplicationTests

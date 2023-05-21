@@ -6,10 +6,10 @@ fileignoreconfig:
 - filename: opa-conftest-k8s.sh
   checksum: e2bfbceaacfcbbf2becfc2d3a781d566114548c680c50e1a9e1dee590fd4f193
 
-- filename: target/site/jacoco/jacoco-sessions.html
-  checksum: 81b12349fe67db2da8a394ae4828bdac17016a9397cf11535c31b74495d54061
 - filename: target/surefire-reports/TEST-com.devsecops.NumericApplicationTests.xml
-  checksum: b985e3e736afb26e38bf6c1160ccc00d697c2c19da9bdf8fd070a87c98b9de10
+  checksum: 1e0e2794f9380b1aa80d8c654471d7d7e555420bd1b267ed2ecb9e96136bca2b
+- filename: target/site/jacoco/jacoco-sessions.html
+  checksum: e16832f7eef38fe2e24622798973d7fb62b6d952ece936d40be11ab27fcbaba1
 - filename: target/site/jacoco/jacoco-resources/prettify.js
   checksum: 8c79f5dd7b2c11de21e46b17c0652b70418eb1d4da620fa081ef9884e3d240cd
 
