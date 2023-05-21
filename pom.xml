@@ -49,10 +49,10 @@
 		</dependency>
 
 		<!-- This dependency help troubleshoot X-content-type-header -->
-		<!-- <dependency>
+		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-security</artifactId>
-		</dependency> -->
+		</dependency>
 		<!--  -->
 		<!-- <dependency>
 			<groupId>org.springframework.boot</groupId>
