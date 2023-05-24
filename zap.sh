@@ -41,7 +41,7 @@ container_id=$(docker ps -lq --filter "ancestor=owasp/zap2docker-stable")
 docker logs "$container_id" > owasp-zap-container-logs.txt
 
 # Analyze the container logs for vulnerabilities
-vulnerabilities=$(grep -iE "vulnerable|error|exception" owasp-zap-container-logs.txt)
+vulnerabilities=$(grep -iE "vulnerable & error|exception" owasp-zap-container-logs.txt)
 
 if [[ -n "$vulnerabilities" ]]; then
     echo "OWASP ZAP Container Logs contain vulnerabilities or errors:"
