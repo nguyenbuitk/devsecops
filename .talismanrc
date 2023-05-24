@@ -4,13 +4,13 @@ fileignoreconfig:
 - filename: opa-conftest-docker.sh
   checksum: 909672bd567d0cc87a5a99b003923dd5bfc18f56ca17a14bcbeb12fea43c000b
 - filename: opa-conftest-k8s.sh
-  checksum: e2bfbceaacfcbbf2becfc2d3a781d566114548c680c50e1a9e1dee590fd4f193
+  checksum: 19b6d29652250d28891d6e1f94bd58fcbd4f47f0daa44a0e55311280c0beb0ae
 
 - filename: target/surefire-reports/TEST-com.devsecops.NumericApplicationTests.xml
   checksum: 42b7f2af140e5b0a1dbda47a40a93d7788c1d02485d555725056b6c0704e34e6
 - filename: target/site/jacoco/jacoco-sessions.html
   checksum: 16048a90b1bdf75aab887a08e24f2db4303f532d0795d5c7e36c68d2571171f4
-  
+
 - filename: target/site/jacoco/jacoco-resources/prettify.js
 
   checksum: 8c79f5dd7b2c11de21e46b17c0652b70418eb1d4da620fa081ef9884e3d240cd
