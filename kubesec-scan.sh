@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Define variables
-RESOURCE_FILE="k8s_deployment_service.yaml"
+RESOURCE_FILE="k8s-deployment-service.yaml"
 scan_result=$(curl -sSX POST --data-binary @"$RESOURCE_FILE" https://v2.kubesec.io/scan)
 scan_message=$(echo "$scan_result" | jq -r '.[0].message')
 scan_score=$(echo "$scan_result" | jq -r '.[0].score')

@@ -1,20 +1,46 @@
-# kubernetes-devops-security
+# DevSecOps Project
 
-## Fork and Clone this Repo
+This repository contains the source code for the DevSecOps project, which focuses on integrating security practices into the software development and operations process.
+Follow is visualize pipeline of project
+![Alt text](devsecops_visualize.png "Title")
+## Table of Contents
 
-## Clone to Desktop and VM
+- [Overview](#overview)
+- [Features](#features)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Contributing](#contributing)
+- [License](#license)
 
-## NodeJS Microservice - Docker Image -
-`docker run -p 8787:5000 siddharth67/node-service:v1`
+## Overview
 
-`curl localhost:8787/plusone/99`
+The DevSecOps project aims to promote a culture of security throughout the software development lifecycle. It combines development, security, and operations practices to enable the rapid and secure delivery of software applications.
 
-## NodeJS Microservice - Kubernetes Deployment -
-`kubectl create deploy node-app --image siddharth67/node-service:v1`
+## Features
 
-`kubectl expose deploy node-app --name node-service --port 5000 --type ClusterIP`
+- Continuous Integration and Continuous Deployment (CI/CD) pipeline
+- Automated security testing and vulnerability scanning
+- Infrastructure as Code (IaC) with configuration management
+- Security monitoring and incident response
+- Secure coding practices and code review
 
-`curl node-service-ip:5000/plusone/99`
+## Installation
+
+To install and run the DevSecOps project locally, follow these steps:
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/nguyenbuitk/devsecops.git
+   ```
+2. Change the image in k8s-deployment-service.yaml to buinguyen/numeric-app and apply
+    ```bash
+    kubectl apply -f k8s-deployment-service.yaml
+    ```
 
 
-### just demo devsecops project
+
+## Usage
+Once the application is up and running, you can access it at http://{nodeName}:{nodePort}. Use the provided credentials to log in and explore the features of the DevSecOps platform.
+
+## Contributing
+Contributions to the DevSecOps project are welcome! If you have any ideas, suggestions, or bug reports, please create an issue or submit a pull request. See our contribution guidelines for more information.

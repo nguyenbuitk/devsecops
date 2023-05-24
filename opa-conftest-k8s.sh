@@ -1,5 +1,5 @@
 POLICY_FILE=opa-k8s-security.rego
-opa_output=$(docker run --rm -v $(pwd):/project openpolicyagent/conftest test --policy ${POLICY_FILE} k8s_deployment_service.yaml)
+opa_output=$(docker run --rm -v $(pwd):/project openpolicyagent/conftest test --policy ${POLICY_FILE} k8s-deployment-service.yaml)
 exit_code=$?
 echo $opa_output
 # number_of_failures=$(echo $opa_output | grep -oP '\d+ failures' | awk '{print $1}' | cut -d' ' -f1)

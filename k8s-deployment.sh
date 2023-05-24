@@ -1,8 +1,8 @@
 #!/bin/bash
 
 #
-# sed -i "s#replace#${imageName}#g" k8s_deployment_service.yaml
-# # kubectl -n default apply -f k8s_deployment_service.yaml
+# sed -i "s#replace#${imageName}#g" k8s-deployment-service.yaml
+# # kubectl -n default apply -f k8s-deployment-service.yaml
 
 # ## Error bash script don't take effect when apply this
 # kubectl -n default get deployment ${deploymentName} > /dev/null
@@ -10,7 +10,7 @@
 # #  output command = 1
 # if [[ $? -ne 0 ]]; then
 #     echo "deployment ${deploymentName} doesnt exist"
-#     kubectl -n default apply -f k8s_deployment_service.yaml
+#     kubectl -n default apply -f k8s-deployment-service.yaml
 # else
 #     echo "deployment ${deployment} exist"
 #     echo "image name - ${imageName}"
@@ -18,7 +18,7 @@
 # fi
 #!/bin/bash
 
-deploymentFile="k8s_deployment_service.yaml"
+deploymentFile="k8s-deployment-service.yaml"
 namespace="default"
 timestamp=$(date +%Y%m%d%H%M%S)
 
