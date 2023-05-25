@@ -2,7 +2,7 @@
 
 This repository contains the source code for the DevSecOps project, which focuses on integrating security practices into the software development and operations process.
 Follow is visualize pipeline of project
-![Alt text](pipeline.png "Pipeline")
+![Alt text](Picture2.jpg "Pipeline")
 ## Table of Contents
 
 - [Overview](#overview)
