@@ -10,7 +10,6 @@ Follow is visualize pipeline of project
 - [Installation](#installation)
 - [Usage](#usage)
 - [Contributing](#contributing)
-- [License](#license)
 
 ## Overview
 
