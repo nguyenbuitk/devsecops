@@ -228,7 +228,7 @@ pipeline {
       script {
         def dashboardUrl = "${env.SONARQUBE_URL}/dashboard?id=numeric-application"
         echo "SonarQube analysis is completed! Check out the report at ${dashboardUrl}"
-        echo "testing demo"
+        echo "demo testing"
       }
     }
   }
