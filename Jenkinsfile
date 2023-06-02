@@ -97,7 +97,7 @@ pipeline {
               ])
             },
             "Trivy Scan" : {
-              sh 'echo "Running Trivy docker scan ..."'
+              sh 'echo "Running Trivy docker scan for demo..."'
               sh "bash trivy-docker-image-scan.sh"
               //  step is archiving the trivy-scan-report-critical.json file and generating a fingerprint for it, making it available for later use
               // /var/lib/jenkins/jobs/devsecops-numeric-application/builds/277/archive/trivy-scan-report-critical.json
