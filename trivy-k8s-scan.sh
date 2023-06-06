@@ -37,5 +37,5 @@ if [[ ${exit_code} == 1 ]]; then
     echo "Image scanning fail. Vulnerability found"
     exit 1;
 else
-    echo "Image scanning passed. No vulnerabilities found"
+    echo "Image scanning passed. No vulnerabilities found. demo"
 fi;
