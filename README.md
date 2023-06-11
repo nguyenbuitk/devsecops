@@ -43,4 +43,4 @@ Once the application is up and running, you can access it at http://{nodeName}:{
 
 ## Contributing
 Contributions to the DevSecOps project are welcome! If you have any ideas, suggestions, or bug reports, please create an issue or submit a pull request. See our contribution guidelines for more information.
-just test demo 
+just demo
